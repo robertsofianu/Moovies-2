@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins',sans-serif;
+}
+
+body{
+    background-color: #121212;
+}
+
+.select{
+    position: relative;
+}
+
+.submit{
+    position: relative; 
+}
+
+/* .submit button{
+    position: absolute;
+    width: 150px;
+    background: #fdfdfb;
+    margin: 0  0;
+    border-radius: 5px;
+    position: absolute;
+    left: 1150px;
+    cursor: pointer;
+    height: 43px;
+    font-size: 18px;
+    border-radius: 5px;
+    top: 150px;
+} */
+
+
+.search-box{
+    width: 300px;
+    background: #fdfdfb;
+    margin: 0  0;
+    border-radius: 5px;
+    position: absolute;
+    left: 930px;
+    top: 10px;
+}
+
+/* .search-box:hover{
+    background: #121212;
+} */
+
+#genreSelect{
+    position: absolute;
+    width: 200px;
+    background: #fdfdfb;
+    border-radius: 5px;
+    display: flex;
+    padding: 10px 20px;
+    flex: 1;
+    height: 43px;
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+    color: #333;
+    left: 690px;
+    top: 10px;
+}
+
+#option{
+    flex: 1;
+    height: 50px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.row{
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+input{
+    flex: 1;
+    height: 20px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+button{
+    background: transparent;
+    border: 0;
+    outline: 0;
+}
+
+button .fa-solid{
+    width: 25px;
+    color: #121212;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+::placeholder{
+    color: #121212;
+}
+
+.result-box ul{
+    border-top: 1px solid #999;
+    padding: 15px 10px;
+}
+
+.result-box ul li{
+    list-style: none;
+    /* border-radius: 3px; */
+    padding: 5px 0px;
+    cursor: pointer;
+}
+
+.result-box ul li:hover{
+    color: #555;
+}
+
+.result-box{
+    max-height: 300px;
+    overflow-y: scroll;
+}
+

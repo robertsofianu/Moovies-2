@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Sign Up: Movies</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/signup.css'>
+    <link rel="shortcut icon" href="../static/imgs/logos/logo_transparent2.png" type="image/x-icon">
+</head>
+<body>
+    <section>
+        <div class="form-box">
+
+            <div class="form-value">
+
+                <form action="/register" method="POST">
+                    
+                    <div class="signup-form">
+                        
+                        <h2>Sign Up</h2>
+            
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert">{{ message }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+            
+                        <div class="inputbox">
+                            <input type="text" name="username" placeholder="Username" autocomplete="off">
+                        </div>
+            
+                        <div class="inputbox">
+                            <input type="text" name="email" placeholder="Email" autocomplete="off">
+                        </div>
+            
+                        <div class="inputbox">
+                            <input type="password" name="password" placeholder="Password" id="password" autocomplete="off">
+                            <img src="../static/imgs/eyes/eye-open_black.png" id = 'eyeicon'>
+                        </div>
+            
+                        <div class="haveacc">
+                            <p>Already have an account <a href="{{url_for("loginpage")}}">Log In</a></p>
+                        </div>
+                        
+                        <button>Sign Up</button>
+
+                    </div>
+        
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <script>
+        let eyeicon = document.getElementById('eyeicon');
+        let password = document.getElementById('password');
+        eyeicon.onclick = function(){
+            if(password.type == 'password'){
+                password.type = 'text';
+            }else{
+                password.type = 'password';
+            }
+        }
+    </script>
+</body>
+</html>

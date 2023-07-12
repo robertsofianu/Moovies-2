@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Forget password: Movies</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/forget_pass.css'>
+    <link rel="shortcut icon" href="../static/imgs/logos/logo_transparent2.png" type="image/x-icon">
+</head>
+<body>
+    <section>
+
+        <div class="form-box">
+
+            <div class="form-value">
+
+                <form action="/replacepass" method="POST">
+                    <div class="recovery">
+
+                        <h2>Recovey</h2>
+    
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert">{{ message }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+    
+                        <p>Enter your email for the recovery</p>
+                
+                        <div class="inputbox">
+                            <input type="email" name="email" placeholder="Email" autocomplete="off">
+                        </div>
+                        
+                        <button>Sent email</button>
+
+                    </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    </form>
+</body>
+</html>

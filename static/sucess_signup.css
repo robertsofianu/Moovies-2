@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins',sans-serif;
+}
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background: url('../static/imgs/bg/bg_resolved.png')no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+.form-box{
+    position: relative;
+    width: 400px;
+    height: 400px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(45px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.inputbox{
+    position: relative;
+    margin: 30px 0;
+    width: 310px;
+    border-bottom: 2px solid #121212;
+    display: flex;
+    align-items: center;
+}
+
+.inputbox input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding:0 35px 0 5px;
+    color: #121212;
+}
+
+.inputbox input::placeholder{
+    color:#121212;
+}
+
+button{
+    color: #fbfbfd;
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background: #121212;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    margin: 25px 0 10px;
+}
+
+button:hover{
+    color: #121212;
+    background-color: #fbfbfd;
+}
+
+.alert{
+    color: #121212;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+
+.inputbox img{
+    width: 25px;
+    cursor: pointer;
+    margin-left: -8px;
+}
+
+.success p{
+    text-align: center;
+    margin: 25px 0 10px;
+}
+
+
+.img-loker{
+    position: relative;
+}
+
+.img-loker img{
+    position: absolute;
+    width: 120px;
+    left: 45px;
+    top: -170px;
+}
+
+.button-login{
+    position: relative;
+}
+
+.button-login button{
+    position: absolute;
+    top: 50px;
+}
+
+.success{
+    position: relative;
+}
+
+.success p{
+    position: relative;
+    top: 10px;
+}
