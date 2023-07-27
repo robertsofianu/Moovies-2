@@ -53,9 +53,7 @@ def dashboard():
     if 'username' in session:
         username = session['username']
         movies = fct_all_titles()
-        links = ['/loginpage', '/signuppage']
-        print(links[0])
-        return render_template('main.html', movies = movies, links = links)
+        return render_template('main.html', movies = movies)
     else:
         return render_template('login.html')
 
@@ -139,6 +137,10 @@ def verifivare():
     l_img = fct_get_matched_movies_info(tuple)
 
     return render_template('rezultate_cautare_filme.html', l_img = l_img)
+
+@app.route("/movie_details")
+def movie_details():
+    return render_template('movie_detail.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
