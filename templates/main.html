@@ -10,38 +10,129 @@
     <link rel='stylesheet' type='text/css' media='screen' href='../static/main.css'>
     <link rel="shortcut icon" href="../static/imgs/logos/logo_transparent2.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/f72ab65de3.js" crossorigin="anonymous"></script>
-</head>
-
-<body>
+  </head>
+  
+  <body>
     <form action="/verificare" method="post">
+      
+      <div class="cards">
+      
+        <div class="card card1">
+          <a href="links[0]" id="">
 
-      <div class="search-box">
+            <img src="{{ movies[0] }}" alt="Card Image">
+        </a>
+        </div>
 
-        <div class="row">
+        <div class="card card2">
+          <a href="{{ links[1] }}">
 
-          <input type="text" name="actor" id="input-box" placeholder="Search your actor..." autocomplete="off">
-          <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            <img src="{{ movies[1] }}" alt="Card Image">
+          </a>
+        </div>
+        
+        <div class="card card3">
+          <a href="{{url_for("loginpage")}}">
 
+            <img src="{{ movies[2] }}" alt="Card Image">        </a>
+        </div>
+        
+        <div class="card card4">
+          <a href="{{url_for("loginpage")}}">
+
+            <img src="{{ movies[3] }}" alt="Card Image">        </a>
+        </div>
+        
+        <div class="card card5">
+          <a href="{{url_for("loginpage")}}">
+
+            <img src="{{ movies[4] }}" alt="Card Image">        </a>
         </div>
       
+        <div class="card card6">
+          <a href="{{url_for("loginpage")}}">
 
-        <div class="result-box">
+            <img src="{{ movies[5] }}" alt="Card Image">        </a>
+        </div>
+      
+        <div class="card card7">
+          <a href="{{url_for("loginpage")}}">
 
+            <img src="{{ movies[6] }}" alt="Card Image">        </a>
+        </div>
+      
+        <div class="card card8">
+          <a href="{{url_for("loginpage")}}">
+
+            <img src="{{ movies[7] }}" alt="Card Image">        </a>
+        </div>
+      
+        <div class="card card9">
+          <a href="{{url_for("loginpage")}}">
+
+            <img src="{{ movies[8] }}" alt="Card Image">        </a>
         </div>
 
+        <div class="card card10">
+          <a href="{{url_for("loginpage")}}">
+
+            <img src="{{ movies[9] }}" alt="Card Image">        </a>
+        </div>
+        <div class="card card11">
+                <a href="{{url_for("loginpage")}}">
+
+                  <img src="{{ movies[10] }}" alt="Card Image">        </a>
+        </div>
+        
+        <div class="card card12">
+          <a href="{{url_for("loginpage")}}">
+
+            <img src="{{ movies[11] }}" alt="Card Image">        </a>
+        </div>
+        
+        <div class="card card13">
+          <a href="{{url_for("loginpage")}}">
+
+            <img src="{{ movies[12] }}" alt="Card Image">        </a>
+        </div>
+        
+        <div class="card card14">
+          <a href="{{url_for("loginpage")}}">
+
+            <img src="{{ movies[13] }}" alt="Card Image">        </a>
+        </div>
+      
+       
+      
       </div>
 
-
+      <div class="search-box">
+        
+        <div class="row">
+          
+          <input type="text" name="actor" id="input-box" placeholder="Search your actor..." autocomplete="off">
+          <button><i class="fa-solid fa-magnifying-glass"></i></button>
+          
+        </div>
+        
+        
+        <div class="result-box">
+          
+        </div>
+        
+      </div>
+      
+      
       <div class="select">
-
+        
         <select id="genreSelect" name="genreSelect">
-            <option value="action" id="option">Action</option>
-            <option value="drama" id="option">Drama</option>
-            <option value="sci-fi" id="option">Sci-Fi</option>
-            <option value="crime" id="option">Crime</option>
-            <option value="animation" id="option">Animation</option>
-            <option value="fantasy" id="option">Fantasy</option>
-            <option value="family" id="option">Family</option>
+          <option value="action" id="option">Action</option>
+          <option value="drama" id="option">Drama</option>
+          <option value="sci-fi" id="option">Sci-Fi</option>
+          <option value="crime" id="option">Crime</option>
+          <option value="animation" id="option">Animation</option>
+          <option value="fantasy" id="option">Fantasy</option>
+          <option value="family" id="option">Family</option>
             <option value="thriller" id="option">Thriller</option>
             <option value="history" id="option">History</option>
             <option value="adventure" id="option">Adventure</option>
@@ -50,21 +141,16 @@
             <option value="short" id="option">Short</option>
             <option value="mystery" id="option">Mystery</option>
             <option value="comedy" id="option">Comedy</option>
-        </select>
-
-      </div>
+          </select>
+          
+        </div>
+        
+        
+      </form>
       
-
-      <!-- <div class="submit">
-
-        <button class="submit-button">Submit</button>
-
-      </div>  -->
-
-    </form>
-
-<script src="../static/main.js"></script>
-
-</body>
-
-</html>
+      
+      <script src="../static/main.js"></script>
+      
+    </body>
+    
+    </html>

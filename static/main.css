@@ -17,20 +17,7 @@ body{
     position: relative; 
 }
 
-/* .submit button{
-    position: absolute;
-    width: 150px;
-    background: #fdfdfb;
-    margin: 0  0;
-    border-radius: 5px;
-    position: absolute;
-    left: 1150px;
-    cursor: pointer;
-    height: 43px;
-    font-size: 18px;
-    border-radius: 5px;
-    top: 150px;
-} */
+
 
 
 .search-box{
@@ -40,12 +27,10 @@ body{
     border-radius: 5px;
     position: absolute;
     left: 930px;
-    top: 10px;
+    top: 35px;
 }
 
-/* .search-box:hover{
-    background: #121212;
-} */
+
 
 #genreSelect{
     position: absolute;
@@ -61,7 +46,7 @@ body{
     font-size: 18px;
     color: #333;
     left: 690px;
-    top: 10px;
+    top: -759px;
 }
 
 #option{
@@ -114,7 +99,6 @@ button .fa-solid{
 
 .result-box ul li{
     list-style: none;
-    /* border-radius: 3px; */
     padding: 5px 0px;
     cursor: pointer;
 }
@@ -128,3 +112,114 @@ button .fa-solid{
     overflow-y: scroll;
 }
 
+.card{
+    width: 230px;
+    height: 360px;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 15px 25px;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin: 15px 15px;
+    /* background-image: url('https://m.media-amazon.com/images/M/MV5BNDIzMzcxZGItNzc3Ny00MWQ3LWEzZDItZTRlMGJmZjU5N2JkXkEyXkFqcGdeQXVyMTA0NTY0NTYy._V1_SX300.jpg'); */
+    background-position: center;
+    background-size: cover;
+    /* border: 1px solid #fdfdfd; */
+    transition: transform 0.5s;
+}
+
+.card.card:hover{
+    transform: translateY(-10px);
+}
+
+.cards{
+    position: relative;
+    top: 100px;
+}
+
+.card1 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}
+
+.card2 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}
+
+
+.card3 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}
+
+
+.card4 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}
+
+.card5 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}
+
+
+.card6 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}
+
+.card7 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}
+
+.card8 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}
+
+.card9 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}
+
+.card10 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}
+
+.card11 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}
+
+.card12 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}
+
+.card13 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}
+
+.card14 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
+}

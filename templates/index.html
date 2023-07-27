@@ -10,28 +10,85 @@
 
 </head>
 <body>
-    <div class="button-container">
-
-        <div class="title">
-            <h1>Movies</h1>
+    <div class="container">
+        <div class="navbar">
+            <!-- <h2>Moovie</h2> -->
+            <img src="../static/imgs/logos/logo_transparent2.png" class="logo">
+            <nav>
+                <ul>
+                    <li><a href='{{url_for("loginpage")}}'>Log In</a></li>
+                    <li><a href="{{url_for("signuppage")}}">Sign Up</a></li>
+                </ul>
+            </nav>
         </div>
 
-        <form action="/loginpage">
-            <div class="loginbutton">
-                <button>Login</button>
+        <div class="row">
+            <div class="col">
+                <h1>Moovie</h1>
+                
             </div>
-        </form>
-    
-        <form action="/signuppage">
-            <div class="signbutton">
-                <button>Sign Up</button>
+
+            <div class="col">
+                <a href="{{url_for("loginpage")}}" target="_blank"> 
+                <div class="card ">
+                    <img src="{{ choiced[0] }}" alt="">
+                </div>
+                
+                <div class="card ">
+                    <img src="{{ choiced[1] }}" alt="">
+
+                </div>
+                   
+                <div class="card ">
+                    <img src="{{ choiced[2] }}" alt="">
+
+                </div>
+                    
+                <div class="card">
+                    <img src="{{ choiced[3] }}" alt="">
+
+                </div>
+                
+                
+                <div class="card ">
+                    <img src="{{ choiced[4] }}" alt="">
+
+                </div>
+                
+
+                <div class="card ">
+                    <img src="{{ choiced[5] }}" alt="">
+
+                </div>
+                
+                <div class="card ">
+                    <img src="{{ choiced[6] }}" alt="">
+
+                </div>
+                
+
+                <div class="card ">
+                    <img src="{{ choiced[7] }}" alt="">
+
+                </div>
+                
+
+                <div class="card ">
+                    <img src="{{ choiced[8] }}" alt="">
+
+                </div>
+                
             </div>
-        </form>
-
-
+        </div>
     </div>
-
-
-
 </body>
+<script>
+    function changeBackgroundImage() {
+        
+    var cardElement = document.querySelector(".card3");
+
+    var newImageURL = "https://m.media-amazon.com/images/M/MV5BOGNmZjY3ZGMtMjZkYS00NzU1LThlMjEtZjcyMTczNjIwMTFmXkEyXkFqcGdeQXVyMTQxMzI2NTEz._V1_SX300.jpg";
+    cardElement.style.backgroundImage = `url('${newImageURL}')`;
+}
+</script>
 </html>

@@ -1,6 +1,7 @@
-from flask import Flask,session, jsonify, render_template, request, flash, redirect, url_for
 from app_fct_login import *
 from app_fct_main import *
+from flask import (Flask, flash, jsonify, redirect, render_template, request,
+                   session, url_for)
 
 app = Flask(__name__)
 app.secret_key=fct_hash_str()
@@ -9,7 +10,9 @@ fct_creare_DB()
 
 @app.route("/")
 def home():
-    return render_template('login.html')
+    posters = fct_all_titles()
+    
+    return render_template('index.html', choiced = posters)
 
 
 
@@ -49,7 +52,10 @@ def login():
 def dashboard():
     if 'username' in session:
         username = session['username']
-        return render_template('main.html')
+        movies = fct_all_titles()
+        links = ['{{url_for("loginpage")}}', '{{url_for("signuppage")}}']
+        print(links[0])
+        return render_template('main.html', movies = movies, links = links)
     else:
         return render_template('login.html')
 
@@ -130,9 +136,9 @@ def verifivare():
     print(actor)
     print(selected_genre)
     tuple = fct_retrive_movies(actor=actor, genre=selected_genre, user=username)
-    img = fct_get_matched_movies_info(tuple)
-    print(f'img:{img}')
-    return render_template('rezultate_cautare_filme.html', img = img)
+    l_img = fct_get_matched_movies_info(tuple)
+
+    return render_template('rezultate_cautare_filme.html', l_img = l_img)
 
 if __name__ == '__main__':
     app.run(debug=True)

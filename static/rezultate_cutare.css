@@ -10,8 +10,32 @@ body{
     background: #121212;
 }
 
-.box-1{
-    position: relative; 
+.card{
+    width: 230px;
+    height: 360px;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 15px 25px;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin: 15px 15px;
+    /* background-image: url('https://m.media-amazon.com/images/M/MV5BNDIzMzcxZGItNzc3Ny00MWQ3LWEzZDItZTRlMGJmZjU5N2JkXkEyXkFqcGdeQXVyMTA0NTY0NTYy._V1_SX300.jpg'); */
+    background-position: center;
+    background-size: cover;
+    /* border: 1px solid #fdfdfd; */
+    transition: transform 0.5s;
+}
+.card.card:hover{
+    transform: translateY(-10px);
+}
+.card1 img{
+    width: 230px;
+    height: 360px;
+    border-radius: 15px;
 }
 
-
+.text h1{
+    position: relative;
+    text-align: center;
+    color: #fbfbfb;
+}
