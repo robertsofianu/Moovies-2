@@ -53,7 +53,7 @@ def dashboard():
     if 'username' in session:
         username = session['username']
         movies = fct_all_titles()
-        links = ['{{url_for("loginpage")}}', '{{url_for("signuppage")}}']
+        links = ['/loginpage', '/signuppage']
         print(links[0])
         return render_template('main.html', movies = movies, links = links)
     else:
