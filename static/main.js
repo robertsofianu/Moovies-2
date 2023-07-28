@@ -2015,3 +2015,11 @@ function selectInput(list){
     resultBox.innerHTML = '';
 }
 
+$(document).on('click', 'a', function () {
+    // console.log(this.id)
+    id_user = this.id
+    console.log(id_user)
+    const fs = require("fs");
+
+    console.log(fs.readFileSync('ids.json').toString())
+});

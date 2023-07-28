@@ -18,14 +18,14 @@
       <div class="cards">
       
         <div class="card card1">
-          <a href="{{url_for("movie_details")}}" id="">
+          <a href="" id="{{ ids[0] }}">
 
             <img src="{{ movies[0] }}" alt="Card Image">
         </a>
         </div>
 
         <div class="card card2">
-          <a href="{{url_for("movie_details")}}">
+          <a href="{{url_for("movie_details")}}" id="{{ ids[1] }}">
 
             <img src="{{ movies[1] }}" alt="Card Image">
           </a>
@@ -145,14 +145,14 @@
           <option value="animation" id="option">Animation</option>
           <option value="fantasy" id="option">Fantasy</option>
           <option value="family" id="option">Family</option>
-            <option value="thriller" id="option">Thriller</option>
-            <option value="history" id="option">History</option>
-            <option value="adventure" id="option">Adventure</option>
-            <option value="horror" id="option">Horror</option>
-            <option value="war" id="option">War</option>
-            <option value="short" id="option">Short</option>
-            <option value="mystery" id="option">Mystery</option>
-            <option value="comedy" id="option">Comedy</option>
+          <option value="thriller" id="option">Thriller</option>
+          <option value="history" id="option">History</option>
+          <option value="adventure" id="option">Adventure</option>
+          <option value="horror" id="option">Horror</option>
+          <option value="war" id="option">War</option>
+          <option value="short" id="option">Short</option>
+          <option value="mystery" id="option">Mystery</option>
+          <option value="comedy" id="option">Comedy</option>
           </select>
           
         </div>
@@ -160,7 +160,7 @@
         
       </form>
       
-      
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script src="../static/main.js"></script>
       
     </body>

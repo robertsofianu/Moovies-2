@@ -53,7 +53,8 @@ def dashboard():
     if 'username' in session:
         username = session['username']
         movies = fct_all_titles()
-        return render_template('main.html', movies = movies)
+        ids = [1123123, 2123123, 3, 4, 5, 6, 7]
+        return render_template('main.html', movies = movies, ids = ids)
     else:
         return render_template('login.html')
 
