@@ -1,12 +1,25 @@
 from app_fct_login import *
 from app_fct_main import *
-from flask import (Flask, flash, jsonify, redirect, render_template, request,
+from flask import (Flask, abort, flash, jsonify, redirect, render_template, request,
                    session, url_for)
+from google_auth_oauthlib import flow
 
 app = Flask(__name__)
 app.secret_key=fct_hash_str()
 
 fct_creare_DB()
+GOOGLE_CLIENT_ID = '532617767739-j8vtdh7u78v2arb7od889s3nfu505bjo.apps.googleusercontent.com'
+
+
+
+def login_is_required(funtion):
+    def wrapper(*args, **kwargs):
+        if 'google_id' not in session:
+            return abort(401)
+        else:
+            return function()
+    return wrapper
+
 
 @app.route("/")
 def home():
@@ -48,6 +61,7 @@ def login():
     elif resp == 8:
         return render_template('premium_sub.html')
 
+@login_is_required
 @app.route('/dashboard', methods = ['POST', 'GET'])
 def dashboard():
     if 'username' in session:

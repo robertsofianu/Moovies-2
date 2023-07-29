@@ -2023,3 +2023,4 @@ $(document).on('click', 'a', function () {
 
     console.log(fs.readFileSync('ids.json').toString())
 });
+

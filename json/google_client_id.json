@@ -1,0 +1,11 @@
+{
+  "web": {
+    "client_id": "532617767739-j8vtdh7u78v2arb7od889s3nfu505bjo.apps.googleusercontent.com",
+    "project_id": "movies-394309",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret": "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",
+    "redirect_uris": ["http://127.0.0.1:5000/dashboard"]
+  }
+}
