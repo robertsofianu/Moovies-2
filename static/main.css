@@ -223,3 +223,8 @@ button .fa-solid{
     height: 360px;
     border-radius: 15px;
 }
+
+.logout{
+    position: relative;
+    
+}

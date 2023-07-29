@@ -43,6 +43,7 @@ def home():
     
     return render_template('index.html', choiced = posters)
 
+
 @app.route("/googlelogin")
 def googlelogin():
     authorization_url, state = flow.authorization_url()
@@ -104,7 +105,7 @@ def login():
     elif resp == 8:
         return render_template('premium_sub.html')
 
-@login_is_required
+
 @app.route('/dashboard', methods = ['POST', 'GET'])
 def dashboard():
     if 'username' in session:
@@ -118,7 +119,7 @@ def dashboard():
 @app.route('/logout')
 def logout():
     session.clear()
-    return 'You have been logged out.'
+    return render_template('logoutsuccess.html')
 
 
 @app.route("/register", methods = ["POST"])
