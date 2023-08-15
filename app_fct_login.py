@@ -151,8 +151,8 @@ def fct_test(*kargs):
 
         cur.execute(
         """--sql
-        INSERT INTO users (username, email, password, token_reset_pass, fav_artist, movies_genre) VALUES (?, ?, ?, ?, ?, ?)
-        """, (username, email, password, '', '', ''))
+        INSERT INTO users (username, email, password, token_reset_pass, fav_artist, movies_genre, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (username, email, password, '', '', '', '../static/imgs/poster_unknown/unknown_poster.png'))
         con.commit()
         if email == 'robertsofianu@gmail.com':
             cur.execute("""--sql
@@ -164,6 +164,7 @@ def fct_test(*kargs):
             UPDATE users SET status = ? WHERE email = ?
             """, ('freesub', email, ))
             con.commit()
+
         return 6 # insert username, email and password
 
 def fct_reset_password(email: str, db= DB_PATH):
@@ -260,7 +261,7 @@ def fct_ver_pass(password: str):
         return False
 
 def fct_username_validator(username: str):
-    bad_words = ['dick', 'penis', 'pussy', 'vagina', 'cunt', 'cum', 'shit', 'whore', 'bitch']
+    bad_words = ['duck', 'dog']
     status = False
     for bad_word in bad_words:
         if bad_word in username:

@@ -13,156 +13,194 @@
   </head>
   
   <body>
-    <form action="/verificare" method="post">
+    <div class="container">
+
+          <form action="/verificare" method="post">
+            
+            <div class="profile_pciture">
+
+              <img src="" alt="">
+
+            </div>
+            
+            <div class="cards">
+            
+              <div class="card card1">
+                <a href="" id="{{ ids[0] }}">
       
-      <div class="cards">
+                  <img src="{{ movies[0] }}" alt="Card Image">
+              </a>
+              </div>
       
-        <div class="card card1">
-          <a href="" id="{{ ids[0] }}">
-
-            <img src="{{ movies[0] }}" alt="Card Image">
-        </a>
-        </div>
-
-        <div class="card card2">
-          <a href="{{url_for("movie_details")}}" id="{{ ids[1] }}">
-
-            <img src="{{ movies[1] }}" alt="Card Image">
-          </a>
-        </div>
-        
-        <div class="card card3">
-          <a href="{{url_for("movie_details")}}">
-
-            <img src="{{ movies[2] }}" alt="Card Image">       
-           </a>
-        </div>
-        
-        <div class="card card4">
-          <a href="{{url_for("movie_details")}}">
-
-            <img src="{{ movies[3] }}" alt="Card Image">      
-            </a>
-        </div>
-        
-        <div class="card card5">
-          <a href="{{url_for("movie_details")}}">
-
-            <img src="{{ movies[4] }}" alt="Card Image">      
-            </a>
-        </div>
+              <div class="card card2">
+                <a href="{{url_for("movie_details")}}" id="{{ ids[1] }}">
       
-        <div class="card card6">
-          <a href="{{url_for("movie_details")}}">
-
-            <img src="{{ movies[5] }}" alt="Card Image">      
-            </a>
-        </div>
-      
-        <div class="card card7">
-          <a href="{{url_for("movie_details")}}">
-
-            <img src="{{ movies[6] }}" alt="Card Image">       
-           </a>
-        </div>
-      
-        <div class="card card8">
-          <a href="{{url_for("movie_details")}}">
-
-            <img src="{{ movies[7] }}" alt="Card Image">        
-          </a>
-        </div>
-      
-        <div class="card card9">
-          <a href="{{url_for("movie_details")}}">
-
-            <img src="{{ movies[8] }}" alt="Card Image">        
-          </a>
-        </div>
-
-        <div class="card card10">
-          <a href="{{url_for("movie_details")}}">
-
-            <img src="{{ movies[9] }}" alt="Card Image">        
-          </a>
-        </div>
-        <div class="card card11">
+                  <img src="{{ movies[1] }}" alt="Card Image">
+                </a>
+              </div>
+              
+              <div class="card card3">
                 <a href="{{url_for("movie_details")}}">
-
-                  <img src="{{ movies[10] }}" alt="Card Image">       
+      
+                  <img src="{{ movies[2] }}" alt="Card Image">       
                  </a>
-        </div>
+              </div>
+              
+              <div class="card card4">
+                <a href="{{url_for("movie_details")}}">
+      
+                  <img src="{{ movies[3] }}" alt="Card Image">      
+                  </a>
+              </div>
+              
+              <div class="card card5">
+                <a href="{{url_for("movie_details")}}">
+      
+                  <img src="{{ movies[4] }}" alt="Card Image">      
+                  </a>
+              </div>
+            
+              <div class="card card6">
+                <a href="{{url_for("movie_details")}}">
+      
+                  <img src="{{ movies[5] }}" alt="Card Image">      
+                  </a>
+              </div>
+            
+              <div class="card card7">
+                <a href="{{url_for("movie_details")}}">
+      
+                  <img src="{{ movies[6] }}" alt="Card Image">       
+                 </a>
+              </div>
+            
+              <div class="card card8">
+                <a href="{{url_for("movie_details")}}">
+      
+                  <img src="{{ movies[7] }}" alt="Card Image">        
+                </a>
+              </div>
+            
+              <div class="card card9">
+                <a href="{{url_for("movie_details")}}">
+      
+                  <img src="{{ movies[8] }}" alt="Card Image">        
+                </a>
+              </div>
+      
+              <div class="card card10">
+                <a href="{{url_for("movie_details")}}">
+      
+                  <img src="{{ movies[9] }}" alt="Card Image">        
+                </a>
+              </div>
+              <div class="card card11">
+                      <a href="{{url_for("movie_details")}}">
+      
+                        <img src="{{ movies[10] }}" alt="Card Image">       
+                       </a>
+              </div>
+              
+              <div class="card card12">
+                <a href="{{url_for("movie_details")}}">
+      
+                  <img src="{{ movies[11] }}" alt="Card Image">        
+                </a>
+              </div>
+              
+              <div class="card card13">
+                <a href="{{url_for("movie_details")}}">
+      
+                  <img src="{{ movies[12] }}" alt="Card Image">        
+                </a>
+              </div>
+              
+              <div class="card card14">
+                <a href="{{url_for("movie_details")}}">
+      
+                  <img src="{{ movies[13] }}" alt="Card Image">   
+                  <!-- <img src="../static/imgs/poster_unknown/unknown_poster.jpg" alt="Card Image">        -->
+                </a>
+              </div>
+            
+             
+            
+            </div>
+            
+      
+      
+            <div class="search-box">
+              <div class="row">
+                
+                <input type="text" name="actor" id="input-box" placeholder="Search your actor..." autocomplete="off">
+                <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                
+              </div>
+              
+              
+              <div class="result-box">
+                
+              </div>
+              
+            </div>
+            
+            
+            <div class="select">
+              
+              <select id="genreSelect" name="genreSelect">
+                <option value="action" id="option">Action</option>
+                <option value="drama" id="option">Drama</option>
+                <option value="sci-fi" id="option">Sci-Fi</option>
+                <option value="crime" id="option">Crime</option>
+                <option value="animation" id="option">Animation</option>
+                <option value="fantasy" id="option">Fantasy</option>
+                <option value="family" id="option">Family</option>
+                <option value="thriller" id="option">Thriller</option>
+                <option value="history" id="option">History</option>
+                <option value="adventure" id="option">Adventure</option>
+                <option value="horror" id="option">Horror</option>
+                <option value="war" id="option">War</option>
+                <option value="short" id="option">Short</option>
+                <option value="mystery" id="option">Mystery</option>
+                <option value="comedy" id="option">Comedy</option>
+                </select>
+                
+              </div>
+              
+              
+            </form>
+      
+            <form action="/logout">
+      
+              <div class="logout">
         
-        <div class="card card12">
-          <a href="{{url_for("movie_details")}}">
+                <button>Log out</button>
+      
+              </div>
+      
+            </form>
+      
+            <form action="/profile">
+      
+              <div class="profile">
+        
+                <button>Profile</button>
+      
+              </div>
+              
+            </form>
 
-            <img src="{{ movies[11] }}" alt="Card Image">        
-          </a>
-        </div>
+            <form action="/premium">
+      
+              <div class="premium">
         
-        <div class="card card13">
-          <a href="{{url_for("movie_details")}}">
+                <button>Premium</button>
+      
+              </div>
+      
+            </form>
 
-            <img src="{{ movies[12] }}" alt="Card Image">        
-          </a>
-        </div>
-        
-        <div class="card card14">
-          <a href="{{url_for("movie_details")}}">
-
-            <img src="{{ movies[13] }}" alt="Card Image">        
-          </a>
-        </div>
-      
-       
-      
-      </div>
-      
-      <div class="logout">
-        <h2><a href="{{url_for("logout")}}">Log out</a></h2>
-      </div>
-
-      <div class="search-box">
-        <div class="row">
-          
-          <input type="text" name="actor" id="input-box" placeholder="Search your actor..." autocomplete="off">
-          <button><i class="fa-solid fa-magnifying-glass"></i></button>
-          
-        </div>
-        
-        
-        <div class="result-box">
-          
-        </div>
-        
-      </div>
-      
-      
-      <div class="select">
-        
-        <select id="genreSelect" name="genreSelect">
-          <option value="action" id="option">Action</option>
-          <option value="drama" id="option">Drama</option>
-          <option value="sci-fi" id="option">Sci-Fi</option>
-          <option value="crime" id="option">Crime</option>
-          <option value="animation" id="option">Animation</option>
-          <option value="fantasy" id="option">Fantasy</option>
-          <option value="family" id="option">Family</option>
-          <option value="thriller" id="option">Thriller</option>
-          <option value="history" id="option">History</option>
-          <option value="adventure" id="option">Adventure</option>
-          <option value="horror" id="option">Horror</option>
-          <option value="war" id="option">War</option>
-          <option value="short" id="option">Short</option>
-          <option value="mystery" id="option">Mystery</option>
-          <option value="comedy" id="option">Comedy</option>
-          </select>
-          
-        </div>
-        
-        
-      </form>
-      
+    </div>    
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script src="../static/main.js"></script>
       

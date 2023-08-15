@@ -117,3 +117,45 @@ h5{
 a{
     text-decoration: none;
 }
+
+.login{
+    position: relative;
+    left: 1355px;
+}
+
+.login button{
+    cursor: pointer;
+    background-color: #121212;
+    color: #fdfdfb;
+    border: 2px solid #fdfdfb;
+    width: 100px;
+    height: 43px;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+.login button:hover{
+    color: #121212;
+    background-color: #fdfdfb;
+}
+
+.signup{
+    position: relative;
+    left: 1400px;
+}
+
+.signup button{
+    cursor: pointer;
+    background-color: #121212;
+    color: #fdfdfb;
+    border: 2px solid #fdfdfb;
+    width: 100px;
+    height: 43px;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+.signup button:hover{
+    color: #121212;
+    background-color: #fdfdfb;
+}

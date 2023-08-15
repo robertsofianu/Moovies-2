@@ -19,7 +19,7 @@ app.secret_key=fct_hash_str()
 fct_creare_DB()
 GOOGLE_CLIENT_ID = '532617767739-j8vtdh7u78v2arb7od889s3nfu505bjo.apps.googleusercontent.com'
 
-client_secrets_file = os.path.join(pathlib.Path(__file__).parent, r"C:\Users\rober\OneDrive\Desktop\Programming\_movies_unboxing\json\google_client_id.json")
+client_secrets_file = os.path.join(pathlib.Path(__file__).parent, r"json\google_client_id.json")
 
 flow = Flow.from_client_secrets_file(
     client_secrets_file=client_secrets_file,
@@ -127,6 +127,7 @@ def register():
     username = request.form.get('username')
     email = request.form.get('email')
     password = request.form.get('password')
+    default_photo = '../static/imgs/unknownperson/default_profile.png'
 
     resp = fct_test(username, email, password)
     if resp == 4:
@@ -195,11 +196,49 @@ def verifivare():
     tuple = fct_retrive_movies(actor=actor, genre=selected_genre, user=username)
     l_img = fct_get_matched_movies_info(tuple)
 
-    return render_template('rezultate_cautare_filme.html', l_img = l_img)
+    return render_template('rezultate_cautare_filme.html', l_img = l_img)   
 
 @app.route("/movie_details")
 def movie_details():
     return render_template('movie_detail.html')
+
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
+@app.route('/premium')
+def premium():
+    return render_template('premium.html')
+
+@app.route('/premium_submit' , methods = ['POST'])
+def premium_submit():
+    username = session['username']
+    card_number = request.form.get('card_number')
+    card_holder = request.form.get('card_holder')
+    month = request.form.get('month')
+    year = request.form.get('year_input')
+    cvv = request.form.get('csv')
+
+    print(card_number)
+    print(card_holder)
+    print(username)
+    print(month)
+    print(year)
+    print(cvv)
+
+    resp = fct_paymanet_info_validation(username, card_number, card_holder, month, year, cvv)
+    print(resp)
+    if resp == -1:
+        flash('Invalid card number', 'error')
+        return render_template("premium.html")
+    elif resp == 1:
+        flash('Invalid credential', 'error')
+        return render_template("premium.html")
+    elif resp == 0:
+        return 'totul merge'
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
