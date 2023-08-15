@@ -1,9 +1,10 @@
-import sqlite3
-import random
+import hashlib
 import pprint
+import random
+import sqlite3
+
 import cssutils
 import numpy as np
-
 
 DB_PATH = r'C:\Users\rober\OneDrive\Desktop\Programming\_movies_unboxing\database\users.db'
 def fct_retrive_movies(actor: str, genre: str, user: str, db = DB_PATH):
@@ -29,6 +30,7 @@ def fct_retrive_movies(actor: str, genre: str, user: str, db = DB_PATH):
     UPDATE users SET movies_genre = ? WHERE username = ? 
     """, (genre, user, ))
     con.commit()
+
 
     return matched_movies, actor_movies, genre_movies
 
@@ -126,23 +128,109 @@ SELECT poster FROM movies WHERE title = ?
     
     return posters
 
+def fct_is_valid_credit_card(card_number):
+
+    card_number = ''.join(filter(str.isdigit, card_number))
+
+
+    doubled_digits = []
+    for i in range(len(card_number) - 2, -1, -2):
+        doubled_digit = int(card_number[i]) * 2
+        if doubled_digit > 9:
+            doubled_digit -= 9
+        doubled_digits.append(doubled_digit)
+
+    total_sum = sum(doubled_digits) + sum(int(digit) for digit in card_number[-1::-2])
+
+    val = total_sum % 10 == 0
+    resp = 0 # invalid card
+
+    
+    if val:
+        resp = 1 # valid card   
+    if not card_number.isdigit():
+        resp = 0    
+    print(resp) 
+    return resp 
+    
+        
+
+
+def fct_paymanet_info_validation(user, c_n, c_h, m, y, cvv: str):
+    response = '' 
+    validation_cn = fct_is_valid_credit_card(c_n)
+    val = True
+    if validation_cn == 0:
+        val = False
+        response = -1 # INVALID CARD NUMBER
+    elif c_h == '' or c_h == None:
+        val = False
+        response = 1 # INVALID CREDITALS
+    elif m == '' or m == None:
+        val = False
+        response = 1 # INVALID CREDITALS
+    elif y == '' or y == None:
+        val = False
+        response = 1 # INVALID CREDITALS
+    elif cvv == '' or cvv == None or not cvv.isdigit():
+        val = False
+        response = 1 # INVALID CREDITALS
+
+    if val:    
+        con = sqlite3.connect(DB_PATH)
+        cur = con.cursor()
+        c_n = hashlib.sha256(c_n.encode()).hexdigest()
+        c_h = hashlib.sha256(c_h.encode()).hexdigest()
+        m = hashlib.sha256(m.encode()).hexdigest()
+        y = hashlib.sha256(y.encode()).hexdigest()
+        cvv = hashlib.sha256(cvv.encode()).hexdigest()
+        
+        cur.execute("""--sql
+        UPDATE users SET card_number = ? WHERE username = ?
+        """, (c_n, user, ))
+        con.commit()
+
+        cur.execute("""--sql
+        UPDATE users SET card_holder = ? WHERE username = ?
+        """, (c_h, user, ))
+        con.commit()    
+
+        cur.execute("""--sql
+        UPDATE users SET exp_month = ? WHERE username = ?
+        """, (m, user, ))
+        con.commit()
+
+        cur.execute("""--sql
+        UPDATE users SET exp_year = ? WHERE username = ?
+        """, (y, user, ))
+        con.commit()
+
+        cur.execute("""--sql
+        UPDATE users SET cvv = ? WHERE username = ?
+        """, (cvv, user, ))
+        con.commit()
+
+        cur.execute("""--sql
+        UPDATE users SET status = ? WHERE username = ?
+        """, ('premiumsub', user, ))
+        con.commit()
+        
+        response = 0 # VALID DATA
+
+    
+    return response
+        
+
+    
+
+
+
+
+
 if __name__ == "__main__":
     print('main')
-    # con = sqlite3.connect(DB_PATH)
-    # cur = con.cursor()
-    # cur.execute("""--sql
-    # SELECT actors FROM movies WHERE title = ?
-    # """, ('Breaking Bad', ))
-    # print(cur.fetchall())
-    # tup = fct_retrive_movies('aaron paul', 'drama', 'u')
-    # dict1 = fct_get_matched_movies_info(tup)
-    # for key in dict1.keys():
-    #     print(dict1[key])
-    # import numpy as np
-    
-    # arr = np.array((1, 2, 3, 4, 5))
-
-    # print(arr[0])
-    # fct_all_titles()
-
-    
+    card_number = "45320151128336"  
+    if fct_is_valid_credit_card(card_number) == 1:
+        print(f"The credit card number {card_number} is valid.")
+    else:
+        print(f"The credit card number {card_number} is not valid.")

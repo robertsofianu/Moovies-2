@@ -348,28 +348,33 @@ def fct_ver_movies(l: list):
     print(filme_negasite)
 
 
+def add_col():
+    con = sqlite3.connect(DB_PATH)
+    cur = con.cursor()
+    cur.execute("""--sql
+ALTER TABLE users ADD COLUMN cvv TEXT
+                """)
+
+
+def fct_schimbare_poster():
+    con = sqlite3.connect(database=DB_PATH)
+    cur = con.cursor()
+    cur.execute('SELECT title FROM movies WHERE poster = ?', ('../static/imgs/poster_unknown/unknown_poster.jpg',))
+    not_ok_movies = cur.fetchall()
+
+    all_msd = []
+    for tuple in not_ok_movies:
+        for movie in tuple:
+            all_msd.append(movie)
+    print(all_msd)
+    poster = '../static/imgs/poster_unknown/unknown_poster.png'
+    for movie in all_msd:
+        cur.execute("""--sql
+                UPDATE movies SET poster = ? WHERE title = ?
+                """, (poster, movie, ))
+        con.commit()
 
 if __name__ == '__main__':
     print()
-    con = sqlite3.connect(DB_PATH)
-    cur = con.cursor()
-    # cur.execute("""--sql
-    # SELECT actors FROM movies WHERE title = ?
-    # """, ('El Camino: A Breaking Bad Movie',))
-    # print(cur.fetchall())
-    # fct_ver_movies(txt_all_movies)
-    # print(fct_omdb_movie_details('Emmanuelle: Queen of Sados'))
-    # print(fct_omdb_movie_details('EL camino: A breaking bad movie'))
-    # fct_creare_DB_notmain(1)
-    # fct_insert(txt_all_movies)
-    # fct_delete_table('movies')
-    fct_update_score(txt_all_movies)
-    # cur.execute("""--sql
-    # SELECT ratings FROM movies WHERE title = ?
-    # """, ('Goodfellas', ))
-    # rat = str(cur.fetchall())
-    # print(rat)
-    # cur.execute("""--sql
-    # UPDATE movies SET ratings = ? WHERE title = ?
-    # """, (rat, 'Goodfellas',))
-    # con.commit()
+    # fct_schimbare_poster()
+    add_col()

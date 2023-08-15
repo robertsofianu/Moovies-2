@@ -14,16 +14,23 @@
         <div class="navbar">
             <!-- <h2>Moovie</h2> -->
             <img src="../static/imgs/logos/logo_transparent2.png" class="logo">
-            <nav>
-                <ul>
-                    <li><a href='{{url_for("loginpage")}}'>Log In</a></li>
-                    <li><a href="{{url_for("signuppage")}}">Sign Up</a></li>
-                </ul>
-            </nav>
-        </div>
+            <form action="loginpage">
+                <div class="login">
+                    <button>Log In</button>
+                </div>
+            </form>
+            
+            <form action="signuppage">
+                <div class="signup">
+                    <button>Sign Up</button>
+                </div>
+            </form>
 
+        </div>
+        
         <div class="row">
             <div class="col">
+                
                 <h1>Moovie</h1>
                 
             </div>
