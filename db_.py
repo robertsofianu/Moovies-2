@@ -1,8 +1,9 @@
+import json
 import sqlite3
 import time
-import requests
-import json
+
 import pyautogui
+import requests
 
 DB_PATH = r'C:\Users\rober\OneDrive\Desktop\Programming\_movies_unboxing\database\users.db'
 TXT_MOVIES_PATH = r'C:\Users\rober\OneDrive\Desktop\Programming\_movies_unboxing\txt_files\all_movies.txt'
@@ -22,12 +23,10 @@ def fct_omdb_movie_details(movie_title) -> dict:
     url = f"{omdb_base_url}?apikey={omdb_api_key}&t={movie_title}&plot=full"
     response = requests.get(url)
     data = response.json()
-    return data # data is the dict that has all the info about a certain movie
+    return data  # data is the dict that has all the info about a certain movie
 
 
-    
-
-def fct_creare_DB_notmain(nr :int, db = DB_PATH):
+def fct_creare_DB_notmain(nr: int, db=DB_PATH):
     if nr == 1:
         con = sqlite3.connect(db)
         cur = con.cursor()
@@ -72,16 +71,16 @@ def fct_creare_DB_notmain(nr :int, db = DB_PATH):
         con.commit()
 
 
-def fct_insert(l: list, db = DB_PATH):
+def fct_insert(l: list, db=DB_PATH):
     con = sqlite3.connect(db)
     cur = con.cursor()
 
     for movie in l:
-        movie : str
+        movie: str
         movie = movie.strip()
         dict_details = fct_omdb_movie_details(movie)
         response = dict_details['Response']
-        if response == 'True':           
+        if response == 'True':
             title = dict_details['Title']
             year = dict_details['Year']
             release = dict_details['Released']
@@ -97,7 +96,7 @@ def fct_insert(l: list, db = DB_PATH):
             rating = dict_details['Ratings']
             ratings = []
             for ra in rating:
-                    ratings.append(ra['Value'])
+                ratings.append(ra['Value'])
             ratings = ', '.join(ratings)
 
             typo = dict_details['Type']
@@ -106,7 +105,7 @@ def fct_insert(l: list, db = DB_PATH):
                 seasons = dict_details['totalSeasons']
             except KeyError:
                 seasons = 'NULL'
-            
+
         cur.execute("""--sql
         INSERT INTO movies (title, year, release, runtime, genres, director, writers, actors, plot, languages, poster, ratings, type, seasons) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (title, year, release, runtime, genres, director, writers, actrors, plot, languages, poster, ratings, typo, seasons))
@@ -115,8 +114,7 @@ def fct_insert(l: list, db = DB_PATH):
         #     continue
 
 
-
-def fct_delete_table(table_name: str, db = DB_PATH):
+def fct_delete_table(table_name: str, db=DB_PATH):
     import sqlite3
 
     conn = sqlite3.connect(db)
@@ -127,24 +125,22 @@ def fct_delete_table(table_name: str, db = DB_PATH):
     conn.commit()
 
 
-
-def fct_resolve(l: list, db = DB_PATH):
+def fct_resolve(l: list, db=DB_PATH):
     filme_negasite = 0
     total_filme = 0
     for movie in l:
         total_filme += 1
-        movie : str
+        movie: str
         movie = movie.strip()
         dict_details = fct_omdb_movie_details(movie)
         response = dict_details['Response']
-        if response == 'True':           
+        if response == 'True':
             continue
         else:
             filme_negasite += 1
-        print(f'Total filme: {total_filme} | Filme negasite: {filme_negasite}', end='\r ')
+        print(
+            f'Total filme: {total_filme} | Filme negasite: {filme_negasite}', end='\r ')
     return filme_negasite
-
-
 
 
 def fct_select_movies():
@@ -162,7 +158,6 @@ def fct_select_movies():
     print(movies)
 
 
-
 def fct_select_all_tieles():
     con = sqlite3.connect(database=DB_PATH)
     cur = con.cursor()
@@ -174,10 +169,9 @@ def fct_select_all_tieles():
     print(movies)
 
 
-
-def fct_list_actori(db = DB_PATH):
+def fct_list_actori(db=DB_PATH):
     all_actors = set()
-    con = sqlite3.connect(db)   
+    con = sqlite3.connect(db)
     cur = con.cursor()
 
     cur.execute('SELECT actors FROM movies')
@@ -190,6 +184,7 @@ def fct_list_actori(db = DB_PATH):
     actors = list(all_actors)
 
     return actors
+
 
 def fct_actor_info_search(actor: str):
     formatted_actor_name = actor.replace(" ", "%20")
@@ -217,7 +212,6 @@ def fct_inserare_act_(s: set, db=DB_PATH):
                 p_photo = 'NONE'
             else:
                 p_photo = f'{url}{size}{p_photo_link}'
-                
 
             cur.execute("""--sql
             INSERT INTO actors (name, p_photo) VALUES (?, ?)
@@ -232,15 +226,17 @@ def fct_inserare_act_(s: set, db=DB_PATH):
             con.commit()
 
 
-def fct_select_NONE(db = DB_PATH):
+def fct_select_NONE(db=DB_PATH):
     con = sqlite3.connect(db)
     cur = con.cursor()
 
-    cur.execute('SELECT name FROM actors WHERE p_photo = ?', ('https://upload.wikimedia.org/wikipedia/commons/e/ee/Unknown-person.gif', ))
+    cur.execute('SELECT name FROM actors WHERE p_photo = ?',
+                ('https://upload.wikimedia.org/wikipedia/commons/e/ee/Unknown-person.gif', ))
     none_actors = cur.fetchall()
     return none_actors
 
-def fct_update_DB_unknown_actors(l: list, db = DB_PATH):
+
+def fct_update_DB_unknown_actors(l: list, db=DB_PATH):
 
     con = sqlite3.connect(db)
     cur = con.cursor()
@@ -248,9 +244,11 @@ def fct_update_DB_unknown_actors(l: list, db = DB_PATH):
     unknown_photo = r'C:\Users\rober\OneDrive\Desktop\Programming\_movies_unboxing\static\imgs\unknownperson\Unknown-person.png'
     for tuple in l:
         for actor in tuple:
-            cur.execute('UPDATE actors SET p_photo = ? WHERE name = ?', (unknown_photo, actor,))
+            cur.execute('UPDATE actors SET p_photo = ? WHERE name = ?',
+                        (unknown_photo, actor,))
             con.commit()
-            
+
+
 def fct_scrie_lista_js(l: list):
     time.sleep(4)
     for acotor in l:
@@ -277,12 +275,12 @@ def fct_update_score(l: list):
         error = 0
 
         data = fct_omdb_movie_details(movie)
-        try:        
+        try:
             l_ratings = data['Ratings']
             for elem in l_ratings:
                 raiting1 = elem["Value"]
                 ratings.append(raiting1)
-            
+
             for rat in ratings:
                 if '/' in rat:
                     numere = rat.split('/')
@@ -293,8 +291,9 @@ def fct_update_score(l: list):
                 elif '%' in rat:
                     third_score = int(rat.strip('%'))
             if ratings:
-                final_score = (first_score + second_score + third_score) / len(ratings)
-            
+                final_score = (first_score + second_score +
+                               third_score) / len(ratings)
+
             rating_final = f'{int(final_score)}%'
 
             cur.execute("""--sql
@@ -303,7 +302,7 @@ def fct_update_score(l: list):
             con.commit()
 
         except KeyError:
-            error += 1 
+            error += 1
             print(f'error: {error}', end='\r')
             continue
 
@@ -329,7 +328,7 @@ def fct_ver_movies(l: list):
     filme_gasite = 0
     total_filme = 0
     for movie in l:
-        movie : str
+        movie: str
         movie = movie.strip()
         data = fct_omdb_movie_details(movie)
         response = data['Response']
@@ -340,7 +339,8 @@ def fct_ver_movies(l: list):
             continue
         else:
             movie_unfound += 1
-            print(f'filme negasite: {movie_unfound} | filme gasite: {filme_gasite} | total filme: {total_filme}', end='\r')
+            print(
+                f'filme negasite: {movie_unfound} | filme gasite: {filme_gasite} | total filme: {total_filme}', end='\r')
             filme_negasite.append(movie)
         if movie_unfound == 200:
             break
@@ -359,7 +359,8 @@ ALTER TABLE users ADD COLUMN cvv TEXT
 def fct_schimbare_poster():
     con = sqlite3.connect(database=DB_PATH)
     cur = con.cursor()
-    cur.execute('SELECT title FROM movies WHERE poster = ?', ('../static/imgs/poster_unknown/unknown_poster.jpg',))
+    cur.execute('SELECT title FROM movies WHERE poster = ?',
+                ('../static/imgs/poster_unknown/unknown_poster.jpg',))
     not_ok_movies = cur.fetchall()
 
     all_msd = []
@@ -374,7 +375,37 @@ def fct_schimbare_poster():
                 """, (poster, movie, ))
         con.commit()
 
+
+def fct_get_titles():
+    con = sqlite3.connect(DB_PATH)
+    cur = con.cursor()
+    cur.execute("""--sql
+    SELECT title FROM movies 
+    """)
+    titles = cur.fetchall()
+    l_titles = []
+    for t in titles:
+        for movie in t:
+            l_titles.append(movie)
+
+    return l_titles
+
+
+def fct_filelist_serch(l: list):
+    for movie in l[20]:
+        pyautogui.moveTo(-1359, 421)
+        pyautogui.click()
+        pyautogui.write(movie)
+        pyautogui.moveTo(-642, 429)
+        pyautogui.click()
+        pyautogui.moveTo(-1359, 421)
+        pyautogui.click()
+        pyautogui.click()
+        pyautogui.click()
+        pyautogui.press('delete')
+
+
 if __name__ == '__main__':
     print()
-    # fct_schimbare_poster()
-    add_col()
+    l = fct_get_titles()
+    fct_filelist_serch(l=l)

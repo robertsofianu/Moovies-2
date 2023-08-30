@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Moovie</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/profile.css'>
+    <link rel="shortcut icon" href="../static/imgs/logos/logo_transparent2.png" type="image/x-icon">
+    
+</head>
+<body>
+    <section>
+        <div class="form-box">
+
+            <div class="form-value">
+                <h1>Settings</h1>
+                <form action="/change_username", method="post">
+                    <div class="inputbox">
+                        <input type="text" name="change_username" placeholder="Change Username">
+                        <button>Submit</button>
+                    </div>
+                </form>
+
+                <form action="/change_pass", method="post">
+                    <div class="inputbox">
+                        <input type="password" name="change_pass" placeholder="Change Password">
+                        <button>Submit</button>
+                    </div>
+                </form>
+
+                <form action="/change_email", method="post">
+                    <div class="inputbox">
+                        <input type="password" name="change_email" placeholder="Change Email">
+                        <button>Submit</button>
+                    </div>
+                </form>
+                <form action="/dashboard"></form>
+                    <div class="home">
+                        <button>Home</button>
+                    </div>
+                    
+            </div>
+
+        </div>
+
+    </section>
+</body>
+</html>

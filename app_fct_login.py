@@ -1,21 +1,20 @@
-from email.message import EmailMessage
-from threading import Thread
-from cryptography.fernet import Fernet
-import smtplib
-import sqlite3
 import hashlib
 import random
-import ssl
 import re
+import smtplib
+import sqlite3
+import ssl
+from email.message import EmailMessage
+from threading import Thread
 
-
+from cryptography.fernet import Fernet
 
 DB_PATH = r'C:\Users\rober\OneDrive\Desktop\Programming\_movies_unboxing\database\users.db'
 RE = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9_.+-]+\.[a-zA-Z]+$'
 regex = re.compile(RE)
 
 
-def fct_creare_DB(db = DB_PATH):
+def fct_creare_DB(db=DB_PATH):
     con = sqlite3.connect(db)
     cur = con.cursor()
 
@@ -34,6 +33,7 @@ def fct_creare_DB(db = DB_PATH):
         """
     )
     con.commit()
+
 
 def fct_sent_mail(rec_email: str, token: str, user: str):
     email_sender = 'listofmovie.robert@gmail.com'
@@ -62,15 +62,16 @@ def fct_sent_mail(rec_email: str, token: str, user: str):
         smtp.sendmail(email_sender, email_receiver, em.as_string())
 
 
-def fct_hash_str(p = 'ana are mere'):
+def fct_hash_str(p='ana are mere'):
     p = hashlib.sha256(p.encode()).hexdigest()
     return p
+
 
 def fct_test(*kargs):
     con = sqlite3.connect(DB_PATH)
     cur = con.cursor()
 
-    #FOR LOG IN if len kargs == 2 we verify if the users exists and if passwords matches
+    # FOR LOG IN if len kargs == 2 we verify if the users exists and if passwords matches
     if len(kargs) == 2:
         username1 = kargs[0]
         username1 = username1.strip()
@@ -78,7 +79,7 @@ def fct_test(*kargs):
         password1 = fct_hash_str(kargs[1])
 
         cur.execute(
-        """--sql
+            """--sql
         SELECT * FROM users WHERE username = ?
         """, (username1,))
         con.commit()
@@ -96,26 +97,24 @@ def fct_test(*kargs):
         status = cur.fetchone()
         con.commit()
 
-
         if not exist_user:
-            return 1 # user not found
+            return 1  # user not found
         elif exist_pass[0] != password1:
-            return 2 # password dont match
+            return 2  # password dont match
         if status[0] == 'admin':
-            return 3 # loads admin page
+            return 3  # loads admin page
         elif status[0] == 'freesub':
-            return 7 # loads freesub page
+            return 7  # loads freesub page
         elif status[0] == 'premiumsub':
-            return 8 # loads premium sub   
-    
-    #FOR SIGN UP if len kargs == 3, we verify if user already exists and if not we insert them in db 
+            return 8  # loads premium sub
+
+    # FOR SIGN UP if len kargs == 3, we verify if user already exists and if not we insert them in db
     elif len(kargs) == 3:
         username = kargs[0]
         username = username.strip()
         username = username.lower()
         email = kargs[1]
         passw = kargs[2]
-
 
         resp_username = fct_username_validator(username)
         if resp_username:
@@ -129,30 +128,28 @@ def fct_test(*kargs):
 
         result = regex.match(email)
         if not result:
-            return 9 # invalid email
+            return 9  # invalid email
 
         cur.execute(
-        """--sql
+            """--sql
         SELECT * FROM users WHERE username = ?
         """, (username, ))
         existing_username = cur.fetchone()
         if existing_username:
-            return 4 # invalid username
-        
-
+            return 4  # invalid username
 
         cur.execute(
-        """--sql
+            """--sql
         SELECT * FROM users WHERE email = ?
         """, (email, ))
         exist_email = cur.fetchone()
         if exist_email:
-            return 5 # email already in use
+            return 5  # email already in use
 
         cur.execute(
-        """--sql
+            """--sql
         INSERT INTO users (username, email, password, token_reset_pass, fav_artist, movies_genre, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, (username, email, password, '', '', '', '../static/imgs/poster_unknown/unknown_poster.png'))
+        """, (username, email, password, '', '', '', '../static/imgs/unknownperson/default_profile.png'))
         con.commit()
         if email == 'robertsofianu@gmail.com':
             cur.execute("""--sql
@@ -165,22 +162,24 @@ def fct_test(*kargs):
             """, ('freesub', email, ))
             con.commit()
 
-        return 6 # insert username, email and password
+        return 6  # insert username, email and password
 
-def fct_reset_password(email: str, db= DB_PATH):
+
+def fct_reset_password(email: str, db=DB_PATH):
     result = regex.match(email)
 
     con = sqlite3.connect(db)
     cur = con.cursor()
 
-    create_token = lambda a, b: fct_hash_str(a + b)
+    def create_token(a, b): return fct_hash_str(a + b)
     n1 = str(random.choice(range(10000)))
-    n2 = random.choice(range(256))  
+    n2 = random.choice(range(256))
     n2 = chr(n2)
-    token = create_token(n1, n2) # this token will be sent on email to reset the password
+    # this token will be sent on email to reset the password
+    token = create_token(n1, n2)
 
     cur.execute(
-    """--sql
+        """--sql
     SELECT * FROM users WHERE email = ?
     """, (email, ))
     exist_mail = cur.fetchone()
@@ -203,12 +202,11 @@ def fct_reset_password(email: str, db= DB_PATH):
         t = Thread(target=fct_sent_mail, args=(emai2, token, username))
         t.start()
 
-        return exist_mail # 1 means that the recovery email has been semt
-    return -1 # -1 means that the email was not found it the db 
+        return exist_mail  # 1 means that the recovery email has been semt
+    return -1  # -1 means that the email was not found it the db
 
 
-
-def fct_ver_token_change_pass(token_user: str, passwd: str, db = DB_PATH):
+def fct_ver_token_change_pass(token_user: str, passwd: str, db=DB_PATH):
     con = sqlite3.connect(db)
     cur = con.cursor()
     passw = passwd
@@ -226,15 +224,15 @@ def fct_ver_token_change_pass(token_user: str, passwd: str, db = DB_PATH):
     user_token = cur.fetchone()
     print(user_token)
     if token_user == '':
-        return -1 # invalid token error
+        return -1  # invalid token error
     if user_token:
         user_token = user_token[0]
         cur.execute("""--sql
         UPDATE users SET password = ? WHERE username = ?
         """, (password, user_token, ))
         con.commit()
-        return 1 # sucess 
-    return -1 # fail
+        return 1  # sucess
+    return -1  # fail
 
 
 def fct_ver_pass(password: str):
@@ -250,15 +248,16 @@ def fct_ver_pass(password: str):
     for spchr in specialchar:
         if spchr in password:
             has_sp_char = True
-    
+
     for upper in upper_case:
         if upper in password:
             has_one_upper_case = True
-    
+
     if has_len and has_sp_char and has_one_upper_case:
         return True
     else:
         return False
+
 
 def fct_username_validator(username: str):
     bad_words = ['duck', 'dog']
@@ -268,29 +267,31 @@ def fct_username_validator(username: str):
             status = True
     return status
 
+
 def fct_crypting_str(str1: str):
     key = Fernet.generate_key()
     fernet = Fernet(key)
     enMessage = fernet.encrypt(str1.encode())
     return enMessage, fernet
 
+
 def fct_decript_str(enMes_key: tuple):
     enMes = enMes_key[0]
     key = enMes_key[1]
     decMes = key.decrypt(enMes).decode()
-    return decMes    
+    return decMes
 
 
 if __name__ == '__main__':
-    from threading import Thread
     import time
+    from threading import Thread
+
     from cryptography.fernet import Fernet
 
     email_pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9_.+-]+\.[a-zA-Z]+$'
     regex = re.compile(email_pattern)
 
     email1 = 'robert@gmail.org'
-    
 
     email2 = 'a@a.a'
     result = regex.match(email1)
@@ -316,16 +317,16 @@ if __name__ == '__main__':
 
         enMessage = fernet.encrypt(message.encode())
         return enMessage, fernet
-    
+
     def dec(mes_key: tuple):
         enMes = mes_key[0]
         key = mes_key[1]
         decMes = key.decrypt(enMes).decode()
-        
+
         return decMes
 
     encmes = enc('ana are mere')
-    print(dec(encmes))    
+    print(dec(encmes))
     passw = 'ana are mere     '
     passw2 = passw.strip()
     print(len(passw), len(passw2))

@@ -1,7 +1,8 @@
-import requests
 import sqlite3
-from db_ import fct_omdb_movie_details
 
+import requests
+
+from db_ import fct_omdb_movie_details
 
 TXT_FILE_PATH = r'C:\Users\rober\OneDrive\Desktop\Programming\_movies_unboxing\txt_files\all_movies.txt'
 DB_PATH = r'C:\Users\rober\OneDrive\Desktop\Programming\_movies_unboxing\database\users.db'
@@ -9,7 +10,6 @@ DB_PATH = r'C:\Users\rober\OneDrive\Desktop\Programming\_movies_unboxing\databas
 
 tmdb_api_key = '6260806ec1b9203c07358f07483be1bb'
 tmdb_base_url = 'https://api.themoviedb.org/3'
-
 
 
 def fct_get_all_movies():
@@ -25,11 +25,11 @@ def fct_get_all_movies():
                 title = movie['title']
                 # print(title, end='\r')
                 all_mov.add(title)
-            
+
             page += 1
         except KeyError:
-            break  
-     
+            break
+
     with open(TXT_FILE_PATH, 'w', encoding='utf-8') as f:
         for title in all_mov:
             data = fct_omdb_movie_details(title)
@@ -41,7 +41,7 @@ def fct_get_all_movies():
     return data
 
 
-def fct_get_all_genres(db = DB_PATH):
+def fct_get_all_genres(db=DB_PATH):
     all_genres = set()
     con = sqlite3.connect(db)
     cur = con.cursor()
@@ -53,14 +53,9 @@ def fct_get_all_genres(db = DB_PATH):
             t = t.split(', ')
             for genre in t:
                 all_genres.add(genre)
-    
+
     print(all_genres)
+
 
 # fct_get_all_genres()
 fct_get_all_movies()
-
-
-
-
-
-

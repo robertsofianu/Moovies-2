@@ -1,10 +1,9 @@
+import json
 import os
 import pathlib
 
 import google.auth.transport.requests
 import requests
-from app_fct_login import *
-from app_fct_main import *
 from flask import (Flask, abort, flash, jsonify, redirect, render_template,
                    request, session, url_for)
 from google.oauth2 import id_token
@@ -12,18 +11,22 @@ from google_auth_oauthlib import flow
 from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
 
+from app_fct_login import *
+from app_fct_main import *
 
 app = Flask(__name__)
-app.secret_key=fct_hash_str()
+app.secret_key = fct_hash_str()
 
 fct_creare_DB()
 GOOGLE_CLIENT_ID = '532617767739-j8vtdh7u78v2arb7od889s3nfu505bjo.apps.googleusercontent.com'
 
-client_secrets_file = os.path.join(pathlib.Path(__file__).parent, r"json\google_client_id.json")
+client_secrets_file = os.path.join(pathlib.Path(
+    __file__).parent, r"json\google_client_id.json")
 
 flow = Flow.from_client_secrets_file(
     client_secrets_file=client_secrets_file,
-    scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
+    scopes=["https://www.googleapis.com/auth/userinfo.profile",
+            "https://www.googleapis.com/auth/userinfo.email", "openid"],
     redirect_uri="http://127.0.0.1:5000/dashboard"
 )
 
@@ -39,9 +42,9 @@ def login_is_required(funtion):
 
 @app.route("/")
 def home():
-    posters = fct_all_titles()
-    
-    return render_template('index.html', choiced = posters)
+    posters = fct_all_titles2()
+
+    return render_template('index.html', choiced=posters)
 
 
 @app.route("/googlelogin")
@@ -61,7 +64,8 @@ def callback():
     credentials = flow.credentials
     request_session = requests.session()
     cached_session = cachecontrol.CacheControl(request_session)
-    token_request = google.auth.transport.requests.Request(session=cached_session)
+    token_request = google.auth.transport.requests.Request(
+        session=cached_session)
 
     id_info = id_token.verify_oauth2_token(
         id_token=credentials._id_token,
@@ -73,10 +77,10 @@ def callback():
     session["name"] = id_info.get("name")
     return redirect("/dashboard")
 
+
 @app.route("/loginpage")
 def loginpage():
     return render_template('login.html')
-
 
 
 @app.route("/signuppage")
@@ -84,8 +88,7 @@ def signuppage():
     return render_template('signup.html')
 
 
-
-@app.route("/login", methods = ["POST"]) 
+@app.route("/login", methods=["POST"])
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
@@ -106,15 +109,17 @@ def login():
         return render_template('premium_sub.html')
 
 
-@app.route('/dashboard', methods = ['POST', 'GET'])
+@app.route('/dashboard', methods=['POST', 'GET'])
 def dashboard():
     if 'username' in session:
         username = session['username']
-        movies = fct_all_titles()
-        ids = [1123123, 2123123, 3, 4, 5, 6, 7]
-        return render_template('main.html', movies = movies, ids = ids)
+        tup = fct_all_titles()
+        movies = tup[0]
+        ids = tup[1]
+        return render_template('main.html', movies=movies, ids=ids)
     else:
         return render_template('login.html')
+
 
 @app.route('/logout')
 def logout():
@@ -122,7 +127,7 @@ def logout():
     return render_template('logoutsuccess.html')
 
 
-@app.route("/register", methods = ["POST"])
+@app.route("/register", methods=["POST"])
 def register():
     username = request.form.get('username')
     email = request.form.get('email')
@@ -144,16 +149,14 @@ def register():
     elif resp == 10:
         flash('Invalid password', 'error')
         return render_template('signup.html')
-    
 
 
 @app.route("/forgetpass")
-def forgetpass():   
+def forgetpass():
     return render_template('forget_pass.html')
 
 
-
-@app.route("/replacepass", methods = ['POST'])
+@app.route("/replacepass", methods=['POST'])
 def generatate_token():
     email = request.form.get('email')
     resp = fct_reset_password(email=email)
@@ -162,10 +165,9 @@ def generatate_token():
     elif resp == -1:
         flash('Invalid Email', 'error')
         return render_template('forget_pass.html')
-    
 
 
-@app.route("/replacepassdb", methods = ['POST'])
+@app.route("/replacepassdb", methods=['POST'])
 def replacepass():
     user_token = request.form.get('token')
     possw_user = request.form.get('password')
@@ -183,34 +185,55 @@ def replacepass():
         flash('Invalid password', 'error')
         return render_template('succes_replace.html')
 
-@app.route("/verificare", methods = ['POST'])
+
+@app.route("/verificare", methods=['POST', 'GET'])
 def verifivare():
     actor = request.form.get('actor')
     selected_genre = request.form.get('genreSelect')
     selected_genre = selected_genre.title()
 
     username = session['username']
-    print(username)
-    print(actor)
-    print(selected_genre)
-    tuple = fct_retrive_movies(actor=actor, genre=selected_genre, user=username)
-    l_img = fct_get_matched_movies_info(tuple)
+    tuple = fct_retrive_movies(
+        actor=actor, genre=selected_genre, user=username)
+    l_img = fct_get_matched_movies_info(tuple)[0]
+    ids = fct_get_matched_movies_info(tuple)[1]
 
-    return render_template('rezultate_cautare_filme.html', l_img = l_img)   
+    return render_template('rezultate_cautare_filme.html', l_img=l_img, ids=ids)
+
 
 @app.route("/movie_details")
 def movie_details():
-    return render_template('movie_detail.html')
+    id = fct_return_json_contect()
+    info = fct_get_inf(id)
+    poster = info[0]
+    title = info[1]
+    desp = info[2]
+    year = info[3]
+    relese = info[4]
+    runtime = info[5]
+    genres = info[6]
+    director = info[7]
+    writers = info[8]
+    actors = info[9]
+    ratings = info[10]
+
+    actors1 = actors.split(',')
+    ac_posters = fct_get_actors_posters(actors=actors)
+
+    return render_template('movie_detail.html', poster=poster, title=title, desp=desp, year=year, relese=relese, runtime=runtime, genres=genres, director=director, writers=writers, actors=actors, ratings=ratings, ac_posters=ac_posters, actors1=actors1)
+
 
 @app.route('/profile')
 def profile():
     return render_template('profile.html')
 
+
 @app.route('/premium')
 def premium():
     return render_template('premium.html')
 
-@app.route('/premium_submit' , methods = ['POST'])
+
+@app.route('/premium_submit', methods=['POST'])
 def premium_submit():
     username = session['username']
     card_number = request.form.get('card_number')
@@ -219,15 +242,9 @@ def premium_submit():
     year = request.form.get('year_input')
     cvv = request.form.get('csv')
 
-    print(card_number)
-    print(card_holder)
-    print(username)
-    print(month)
-    print(year)
-    print(cvv)
+    resp = fct_paymanet_info_validation(
+        username, card_number, card_holder, month, year, cvv)
 
-    resp = fct_paymanet_info_validation(username, card_number, card_holder, month, year, cvv)
-    print(resp)
     if resp == -1:
         flash('Invalid card number', 'error')
         return render_template("premium.html")
@@ -235,9 +252,49 @@ def premium_submit():
         flash('Invalid credential', 'error')
         return render_template("premium.html")
     elif resp == 0:
-        return 'totul merge'
+        return render_template('premium_val.html')
 
 
+@app.route('/profile_changes', methods=['POST'])
+def profile_changes():
+    username = session['username']
+    filepath = request.form.get('photo')
+    return 'hello world'
+
+
+@app.route('/change_username', methods=['POST'])
+def change_username():
+    username = session['username']
+    user = request.form.get('change_username')
+    con = sqlite3.connect(DB_PATH)
+    cur = con.cursor()
+    cur.execute("""--sql
+    UPDATE users SET username = ? WHERE username = ?
+    """, (user, username, ))
+    con.commit()
+    return " "
+
+
+@app.route('/save', methods=['POST'])
+def save_data():
+    id_user = request.json.get('id_user')
+
+    absolute_path = 'C:/Users/rober/OneDrive/Desktop/Programming/_movies_unboxing/static/api.json'
+
+    try:
+        with open(absolute_path, 'r') as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        data = []
+
+    data.append(id_user)
+
+    with open(absolute_path, 'w') as file:
+        json.dump(data, file)
+
+    return jsonify(message='Data saved successfully')
+
+# continui si cu restul de pe settings section change_pass, change_email
 
 
 if __name__ == '__main__':

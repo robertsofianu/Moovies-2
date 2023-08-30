@@ -1961,8 +1961,6 @@ let availableKeywords = [
 ]
 
 
-console.log('js script accepted')
-
 const resultBox = document.querySelector('.result-box');
 
 const inputBox = document.getElementById('input-box');
@@ -2016,11 +2014,21 @@ function selectInput(list){
 }
 
 $(document).on('click', 'a', function () {
-    // console.log(this.id)
-    id_user = this.id
-    console.log(id_user)
-    const fs = require("fs");
 
-    console.log(fs.readFileSync('ids.json').toString())
+    const id_user = this.id;
+    console.log(id_user);
+    
+    // Send the id_user to the server
+    $.ajax({
+        method: 'POST',
+        url: '/save',
+        contentType: 'application/json', // Set the content type to JSON
+        data: JSON.stringify({ id_user: id_user }), // Convert data to JSON format
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(error) {
+            console.error('Error:', error);
+        }
+    });
 });
-
